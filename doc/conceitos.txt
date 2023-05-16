@@ -1,0 +1,25 @@
+GITHUB ACTIONS
+
+- Todo projeto no Github tem a sessão "Actions": https://github.com/paulopatricio23/CursoCI/actions
+- Esta sessão nos permite configurar algumas rotinas para nosso projeto.
+- Primeiramente escolhemos o tipo da rotina. Neste caso, Go.
+
+ROTINA DE CI (GITHUB)
+
+- Ao realizar a ação acima, é aberto um editor com o arquivo go.yml para edição da rotina.
+    - Neste arquivo temos os campos:
+
+        - name: -> indica o nome da ação;
+
+        - on: -> quando a rotina deve ser executada
+
+            - push: -> também faz parte do quando, neste caso durante o 'push'
+                - branches: ['aula_1'] -> indicar em quais branches esta rotina deve ser executada;
+
+            - pull_request: -> também faz parte do quando, neste caso durante o 'pull request'
+                - branches: ['aula_1'] -> indicar em quais branches esta rotina deve ser executada;
+
+        - jobs: -> é o passo-a-passo da rotina
+
+            - build: -> um tarefa que deve ser executada
+                - runs-on: ubuntu-latest -> o ambiente em que deve ser executada
