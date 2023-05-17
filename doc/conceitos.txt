@@ -1,0 +1,57 @@
+GITHUB ACTIONS
+
+- Todo projeto no Github tem a sessão "Actions": https://github.com/paulopatricio23/CursoCI/actions
+- Esta sessão nos permite configurar algumas rotinas para nosso projeto.
+- Primeiramente escolhemos o tipo da rotina. Neste caso, Go.
+
+ROTINA DE CI (GITHUB)
+
+- Ao realizar a ação acima, é aberto um editor com o arquivo go.yml para edição da rotina.
+    - Neste arquivo temos os campos:
+
+        - name: -> indica o nome da ação;
+
+        - on: -> quando a rotina deve ser executada
+
+            - push: -> também faz parte do quando, neste caso durante o 'push'
+                - branches: ['aula_1'] -> indicar em quais branches esta rotina deve ser executada;
+
+            - pull_request: -> também faz parte do quando, neste caso durante o 'pull request'
+                - branches: ['aula_1'] -> indicar em quais branches esta rotina deve ser executada;
+
+        - jobs: -> é o passo-a-passo da rotina
+
+            - build: -> uma tarefa que deve ser executada
+                - runs-on: define qual máquina deve ser utilizada. Podemos ter 3 sistemas diferentes: Windows, Ubuntu e MacOS, tendo várias versões disponíveis de cada um deles que podem ser encontradas na documentação (https://docs.github.com/pt/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on).
+                - steps: define quais comandos devem ser executados em sequência, como um script.
+                - name: é utilizado para escolher um nome para cada etapa dentro do steps ou nomear um job se usado antes do runs-on.
+                - run: é onde vamos declarar o que deve ser executado naquele passo, podemos executar apenas um run por passo.
+
+                -> Nos builds, não precisamos nos preocupar com o diretório, uma vez que o diretório raíz é a raíz do repositório, por exemplo:
+                        - name: Build
+                          run: go build -v main.go
+
+                        - name: Test
+                          run: go test -v main_test.go
+
+                -> Configurando o banco:
+                        - name: Build-DB
+                          run: docker-compose build
+                        
+                        - name: Create-DB
+                          run: docker-compose up -d
+            -> É possível separar as rotinas de acordo com necessidade:
+                test:
+                    runs-on: ...
+                    steps: ...
+                build:
+                    runs-on: ...
+                    steps: ...
+            -> Também é possível colocar dependências entre as rotinas, no exemplo abaixo temos a rotina build dependente da rotina test. Assim, a rotina build só será executada quando a test for executada por completo e sem erros:
+                test:
+                    runs-on: ...
+                    steps: ...
+                build:
+                    needs: test -- Esta é a tag que indica uma dependência de outra rotina
+                    runs-on: ...
+                    steps: ...
