@@ -74,4 +74,8 @@ Para utilizarmos o Docker no Github Actions, devemos criar um Dockerfile na raí
         -> Fazer o build do projeto: go build main.go
         -> Construir o container: docker build .
         -> Para verificar se foi construída normalmente: docker images
+
+-> Quando configuramos as variáveis de ambiente no arquivo db.go, a pipeline de testes começou a falhar dando
+    -> o erro: [error] failed to initialize database, got error failed to connect to `host=user=runnerpassword= user=runner database=port=`: hostname resolving error (lookup user=runnerpassword=: no such host).
+    -> Este erro pode ser corrigido indicando as variáveis de ambiente no yml de configuração das pipelines.
         
