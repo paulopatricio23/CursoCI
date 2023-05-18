@@ -55,3 +55,23 @@ ROTINA DE CI (GITHUB)
                     needs: test -- Esta é a tag que indica uma dependência de outra rotina
                     runs-on: ...
                     steps: ...
+
+================================================================================================================================
+
+PIPELINE DOCKER NO GITHUB ACTIONS
+
+Para utilizarmos o Docker no Github Actions, devemos criar um Dockerfile na raíz do projeto.
+
+-> Dockerfile
+    -> Neste arquivo devemos realizar algumas configurações:
+        -> FROM => Indica a imagem a ser utilizada no container;
+        -> EXPOSE => A porta que vai expôr o container na internet;
+        -> WORKDIR => O diretório no container onde possamos organizar os arquivos;
+        -> COPY => Copiar arquivos, no caso deste exemplo, ./main main => Copiando o executável gerado pela compilação também com o nome main;
+        -> ENTRYPOINT ou CMD => O que será feito ao executar o container.
+
+    -> Para testar localmente:
+        -> Fazer o build do projeto: go build main.go
+        -> Construir o container: docker build .
+        -> Para verificar se foi construída normalmente: docker images
+        
